@@ -61,11 +61,13 @@ const operationsLabel = {
 const NewControl = props => {
     const { type } = props.match.params;
     const { loading, error, data} = useQuery(ALL_CATEGORIES);
-    const [addTransaction, saved ] = useMutation(ADD_TRANSACTION, {
+    const [addTransaction, ] = useMutation(ADD_TRANSACTION, {
         update(cache, { data: { createTransaction } }) {
             const { allTransactions } = cache.readQuery({ query: ALL_TRANSACTIONS });
+
             console.log('allTransactions', allTransactions );
             console.log('createTransaction', createTransaction );
+
             cache.writeQuery({
                 query: ALL_TRANSACTIONS,
                 data: { 

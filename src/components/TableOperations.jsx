@@ -38,7 +38,7 @@ const TableOperation = props => {
                             <td className="d-flex justify-content-around">
                                 <Button variant="secondary">Edit</Button>
                                 <Button variant="danger" 
-                                    onClick={() => props.onRemove(operation)}>
+                                    onClick={() => props.onRemove(operation.id)}>
                                         Drop
                                 </Button>
                             </td>
