@@ -43,12 +43,25 @@ const REMOVE_TRANSACTION = gql`
 `;
 
 
-
 const TableOperationContainer = () => {
     const { loading, error, data } = useQuery(ALL_TRANSACTIONS);
 
-    const [remove] = useMutation(REMOVE_TRANSACTION);
     
+    const [remove] = useMutation(REMOVE_TRANSACTION, {
+        update(cache, { data: {removeTransaction }}){
+            const { allTransactions} = cache.readQuery({ query: ALL_TRANSACTIONS});
+
+            const remainingData = transaction => transaction.id !== removeTransaction.id;
+           
+            cache.writeQuery({
+               query: ALL_TRANSACTIONS,
+               data: { allTransactions: allTransactions
+                .filter(remainingData)
+            }
+           });
+       } 
+    });
+
     const handleRemove = (id) => remove({ variables: { id: Number.parseInt(id) }});
 
     return (

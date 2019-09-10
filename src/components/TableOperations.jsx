@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button } from 'react-bootstrap';
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TableOperation = props => {
 
@@ -20,6 +22,7 @@ const TableOperation = props => {
         <Table className="mt-2" striped bordered hover>
             <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Balance</th>
                     <th>Type</th>
@@ -31,15 +34,20 @@ const TableOperation = props => {
                 {
                     props.operations.map(operation => (
                         <tr key={operation.id}>
+                            <td style={{
+                                color: operation.type === 'BILL'? 'red': 'green'
+                            }}>{operation.type === 'BILL'? '-': '+'}</td>
                             <td>{operation.name}</td>
                             <td>{operation.balance}</td>
                             <td>{operation.type}</td>
                             <td>{operation.category.name}</td>
                             <td className="d-flex justify-content-around">
-                                <Button variant="secondary">Edit</Button>
+                                <Button variant="secondary">
+                                    <FontAwesomeIcon icon={faPen} />
+                                </Button>
                                 <Button variant="danger" 
                                     onClick={() => props.onRemove(operation.id)}>
-                                        Drop
+                                        <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                             </td>
                         </tr>
@@ -48,11 +56,11 @@ const TableOperation = props => {
             </tbody>
             <tfoot>
                 <tr>
-                    <td colSpan="4">
+                    <td colSpan="5">
                         Valor total:
                     </td>
                     <td>
-                        {total.toFixed(2)}
+                       R$ {total.toFixed(2).replace('.', ',')}
                     </td>
                 </tr>
             </tfoot>
