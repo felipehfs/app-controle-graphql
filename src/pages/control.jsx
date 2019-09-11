@@ -9,7 +9,6 @@ import {
 import Layout from '../components/Layout';
 import TableContainer from '../containers/TableOperation';
 
-
 export default function(props) {
 
     function redirect(selectedKey) {

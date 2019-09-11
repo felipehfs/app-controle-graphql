@@ -6,7 +6,7 @@ import OperationForm from '../components/OperationForm';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { ALL_TRANSACTIONS } from '../containers/TableOperation';
 
-const ALL_CATEGORIES = gql`
+export const ALL_CATEGORIES = gql`
     query {
         allCategories {
             id 

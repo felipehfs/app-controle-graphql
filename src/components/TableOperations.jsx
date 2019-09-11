@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Table, Button } from 'react-bootstrap';
 import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { withRouter } from 'react-router-dom';
 
 const TableOperation = props => {
 
@@ -42,7 +43,10 @@ const TableOperation = props => {
                             <td>{operation.type}</td>
                             <td>{operation.category.name}</td>
                             <td className="d-flex justify-content-around">
-                                <Button variant="secondary">
+                                <Button variant="secondary"
+                                    onClick={() => 
+                                        props.history.push(`/controls/${operation.id}/edit`)
+                                    }>
                                     <FontAwesomeIcon icon={faPen} />
                                 </Button>
                                 <Button variant="danger" 
@@ -72,4 +76,4 @@ TableOperation.propTypes = {
     operations: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
-export default TableOperation;
+export default withRouter(TableOperation);
